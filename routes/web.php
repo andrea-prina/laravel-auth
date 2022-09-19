@@ -14,9 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('guest.welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')
+    // Update the folder containing the Controllers
+    ->namespace('Admin')
+    // Update the name of each subroute with a prefix
+    ->name('admin.')
+    // Update each url by adding the prefix/
+    ->prefix('admin')
+    // Group all the routes in that folder
+    ->group(function() {
+        Route::get('/', 'HomeController@index')->name('home'); // --> the Route '/admin' with name 'admin.home'
+        Route::resource('/posts', 'PostController');
+    });
