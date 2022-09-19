@@ -49,7 +49,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::where('id', $id)->first();
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
