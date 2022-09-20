@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\models\Post;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -27,7 +29,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $postTemplate = new Post();
+        return view('admin.posts.create', compact('postTemplate'));
     }
 
     /**
@@ -38,7 +41,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $newPost = new Post();
+
+        $newPost->title = $data['title'];
+        $newPost->author = Auth::user()->name;
+        $newPost->post_content = $data['post_content'];
+        $newPost->post_image = $data['post_image'];
+        $newPost->post_date = new DateTime();
+
+        $newPost->save();
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
