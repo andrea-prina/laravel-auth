@@ -2,23 +2,22 @@
 
 @section('content')
 
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-12"><h2 class="fw-bolder">{{ $post['title'] }}</h2></div>
+<div class="container text-center d-flex justify-content-center">
+    <div class="card" style="width: 30rem;">
+        <img src="{{ $post['post_image'] }}" class="card-img-top p-3" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ $post['title'] }}</h5>
+            <p class="card-text">{{ $post['post_content'] }}</p>
         </div>
-        <div class="row">
-            <div class="col-6"><h4>{{ $post['author'] }}</h4></div>
-            <div class="col-6"><h4>{{ $post['post_date'] }}</h4></div>
-            
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <img src="{{ $post['post_image'] }}" alt="">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">{{ $post['post_content'] }}</div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ $post['author'] }}</li>
+            <li class="list-group-item">{{ $post['post_date'] }}</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">EDIT</a>
+            <a href="#" class="card-link">DELETE</a>
         </div>
     </div>
+</div>
 
 @endsection
