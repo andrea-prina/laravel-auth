@@ -12,6 +12,7 @@
                 <th scope="col">Date</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,9 @@
                     </td>
                     <td>
                         {{ $post['post_date'] }}
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.posts.show', $post['id']) }}" class="btn btn-success">VIEW</a>
                     </td>
                 </tr>
     
