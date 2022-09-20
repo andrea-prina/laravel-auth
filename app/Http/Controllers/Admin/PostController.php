@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+
+    protected $validationRules = [
+        'title' => 'required|min:5|max:255',
+        'post_content' => 'required|min:5',
+        'post_image' => 'required|active_url',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -29,8 +36,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $postTemplate = new Post();
-        return view('admin.posts.create', compact('postTemplate'));
+        $post = new Post();
+        return view('admin.posts.create', compact('post'));
     }
 
     /**
@@ -42,6 +49,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $validatedData = $request->validate($this->validationRules);
 
         $newPost = new Post();
 
@@ -90,6 +98,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $sentData = $request->all();
+        $validatedData = $request->validate($this->validationRules);
 
         $post = Post::findOrFail($id);
 
